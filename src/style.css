@@ -11,3 +11,21 @@ body {
   border-radius: 16px;
   box-shadow: 0 30px 50px #41326414;
 }
+
+.search-input {
+  background: #f9f7fe;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 6px;
+  width: 80%;
+  font-size: 16px;
+}
+.search-button {
+  background: rgb(243, 159, 173);
+  border: none;
+  color: white;
+  padding: 15px 30px;
+  font-size: 16px;
+  border-radius: 6px;
+  margin-left: 5px;
+}
