@@ -15,12 +15,13 @@
   <body>
     <div class="blue">
       <header>
-        <form>
+        <form id="blue-search">
           <input
             type="search"
             placeholder="Enter a city.."
             required
             class="search-input"
+            id="search-input"
           />
           <input type="submit" value="Search" class="search-button" />
         </form>
@@ -28,7 +29,7 @@
       <main>
         <div class="weather-app">
           <div>
-            <h1 class="weather-city">Accra</h1>
+            <h1 class="weather-city" id="weather-city">Accra</h1>
             <p class="weather-display">
               Tuesday 14:49, scattered clouds
               <br />
@@ -51,4 +52,5 @@
       </footer>
     </div>
   </body>
+  <script src="src/script.js"></script>
 </html>
