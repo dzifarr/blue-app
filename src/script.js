@@ -7,6 +7,7 @@ function openWeather(response) {
   let windElement = document.querySelector("#wind");
   let timeElement = document.querySelector("#time-stamp");
   let date = new Date(response.data.time * 1000);
+  let iconElement = document.querySelector("#temperature-icon");
 
   weatherCityElement.innerHTML = response.data.city;
   descriptionElement.innerHTML = response.data.condition.description;
@@ -14,6 +15,7 @@ function openWeather(response) {
   windElement.innerHTML = `${response.data.wind.speed}km/h`;
   timeElement.innerHTML = formatDate(date);
   temperatureElement.innerHTML = Math.round(temperature);
+  iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="temperature-icon" />`;
 }
 
 function formatDate(date) {
