@@ -49,6 +49,28 @@ function searchCity(city) {
   axios.get(apiUrl).then(openWeather);
 }
 
+function displayForecast() {
+  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHtml = "";
+
+  days.forEach(function (day) {
+    forecastHtml =
+      forecasHtml +
+      `
+          <div class="forecast-date">
+            <div class="forecast-day">Tue</div>
+            <div class="forecast-icon">🌤️</div>
+            <div class="forecast-temps">
+              <div class="forecast-temp"><strong>12&deg</strong></div>
+              <div class="forecast-temp">15&deg</div>
+            </div>
+        
+    `;
+  });
+
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHtml;
+}
 function handleClick(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
@@ -60,3 +82,4 @@ let blueSearchElement = document.querySelector("#blue-search");
 blueSearchElement.addEventListener("submit", handleClick);
 
 searchCity("Accra");
+displayForecast();

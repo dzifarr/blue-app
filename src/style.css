@@ -113,7 +113,14 @@ main {
   margin-bottom: 10px;
 }
 
-.forecast-temp {
+.forecast-temps {
   text-align: center;
   color: #f65282;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.forecast-temp {
+  padding: 0 8px;
 }
