@@ -16,19 +16,21 @@ function openWeather(response) {
   timeElement.innerHTML = formatDate(date);
   temperatureElement.innerHTML = Math.round(temperature);
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="temperature-icon" />`;
+
+  getForecast(response.data.city);
 }
 
 function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
   let days = [
+    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
-    "Sunday",
   ];
   let day = days[date.getDay()];
 
@@ -49,28 +51,6 @@ function searchCity(city) {
   axios.get(apiUrl).then(openWeather);
 }
 
-function displayForecast() {
-  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
-  let forecastHtml = "";
-
-  days.forEach(function (day) {
-    forecastHtml =
-      forecasHtml +
-      `
-          <div class="forecast-date">
-            <div class="forecast-day">Tue</div>
-            <div class="forecast-icon">🌤️</div>
-            <div class="forecast-temps">
-              <div class="forecast-temp"><strong>12&deg</strong></div>
-              <div class="forecast-temp">15&deg</div>
-            </div>
-        
-    `;
-  });
-
-  let forecastElement = document.querySelector("#forecast");
-  forecastElement.innerHTML = forecastHtml;
-}
 function handleClick(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
@@ -78,8 +58,50 @@ function handleClick(event) {
   searchCity(searchInputElement.value);
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[date.getDay()];
+}
+
+function getForecast(city) {
+  let apiKey = "f7cf08ac67ob46f704t8ef4248a91135";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function displayForecast(response) {
+  let forecastHtml = "";
+
+  response.data.daily.forEach(function (day, index) {
+    if (index > 0 && index < 6) {
+      forecastHtml =
+        forecastHtml +
+        `
+          <div class="forecast-date">
+            <div class="forecast-day">${formatDay(day.time)}</div>
+            <img src="${day.condition.icon_url}" class="forecast-icon" />
+            <div class="forecast-temps">
+              <div class="forecast-temp"><strong>${Math.round(
+                day.temperature.maximum
+              )}&deg</strong>
+              </div>
+              <div class="forecast-temp">${Math.round(
+                day.temperature.minimum
+              )}&deg
+              </div>
+            </div>
+          </div>
+    `;
+    }
+  });
+
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHtml;
+}
+
 let blueSearchElement = document.querySelector("#blue-search");
 blueSearchElement.addEventListener("submit", handleClick);
 
 searchCity("Accra");
-displayForecast();
